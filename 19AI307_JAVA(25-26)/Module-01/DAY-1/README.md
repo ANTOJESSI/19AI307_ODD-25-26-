@@ -45,15 +45,15 @@ To write a Java program that reads three boolean values and evaluates access per
 
 
 ## ALGORITHM :
-```
+
 1.	Start the program.
-2.Create a Scanner object to read input.
-3.Read three boolean values- isRegistered, hasValidId, isBlacklisted.
-4.Compute access eligibility using:
+2. Create a Scanner object to read input.
+3. Read three boolean values- isRegistered, hasValidId, isBlacklisted.
+4. Compute access eligibility using:
 accessGranted = isRegistered && hasValidID && !isBlacklisted;
-5.Display the result: "Access Granted: " + access.
-6.Stop the program.
-```
+5. Display the result: "Access Granted: " + access.
+6. Stop the program.
+
 
 
 ## PROGRAM:
@@ -102,5 +102,6 @@ public class AccessCheck {
 
 ## RESULT:
 Thus, the program successfully evaluates access permission using logical operators and produces the correct output.
+
 
 
