@@ -45,6 +45,7 @@ To write a Java program that reads three boolean values and evaluates access per
 
 
 ## ALGORITHM :
+```
 1.	Start the program.
 2.Create a Scanner object to read input.
 3.Read three boolean values- isRegistered, hasValidId, isBlacklisted.
@@ -52,7 +53,7 @@ To write a Java program that reads three boolean values and evaluates access per
 accessGranted = isRegistered && hasValidID && !isBlacklisted;
 5.Display the result: "Access Granted: " + access.
 6.Stop the program.
-
+```
 
 
 ## PROGRAM:
@@ -101,4 +102,5 @@ public class AccessCheck {
 
 ## RESULT:
 Thus, the program successfully evaluates access permission using logical operators and produces the correct output.
+
 
