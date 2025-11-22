@@ -25,7 +25,11 @@ class prog {
     }
 }
 ```
+
+
 For example:
+
+
 <img width="450" height="304" alt="image" src="https://github.com/user-attachments/assets/b207f2f2-3220-4eda-8983-0d7051c22eff" />
 
 
@@ -105,4 +109,5 @@ public class Prog {  // Change class name from 'prog' to 'Prog'
 ## RESULT:
 
 The program successfully creates a City object and prints all its details.
+
 
