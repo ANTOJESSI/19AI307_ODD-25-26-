@@ -28,15 +28,7 @@ Access Granted: true/false
 
 For example:
 
-Input	
-
-true
-true
-false
-
-Result
-
-Access Granted: true
+<img width="730" height="238" alt="image" src="https://github.com/user-attachments/assets/46cb804d-b149-4f8d-8317-c842796db671" />
 
 
 
@@ -102,6 +94,7 @@ public class AccessCheck {
 
 ## RESULT:
 Thus, the program successfully evaluates access permission using logical operators and produces the correct output.
+
 
 
 
