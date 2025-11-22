@@ -38,25 +38,21 @@ import java.util.Scanner;
 
 public class VariableShadowingExample {
 
-    // Instance variable
-    int number = 10;
+    int number = 10; // Instance variable
 
-    
-    public void shadowVariable(int number) {
-        // Local variable with the same name as the instance variable
-        System.out.println("Local variable number: " + number);  // Refers to the method parameter
-        System.out.println("Instance variable number: " + this.number);  // Refers to the instance variable
+    public void showNumber(int number) { 
+        System.out.println("Local variable number: " + number);   // Local variable
+        System.out.println("Instance variable number: " + this.number); // Instance variable
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        int inputNumber = scanner.nextInt();
+        int input = sc.nextInt(); // Read input for local variable
+        VariableShadowingExample obj = new VariableShadowingExample();
+        obj.showNumber(input);
 
-        VariableShadowingExample example = new VariableShadowingExample();
-        example.shadowVariable(inputNumber);  
-
-        scanner.close();
+        sc.close();
     }
 }
 
@@ -70,3 +66,4 @@ public class VariableShadowingExample {
 
 ## RESULT:
 The program successfully demonstrates variable shadowing by printing both local and instance variable values.
+
