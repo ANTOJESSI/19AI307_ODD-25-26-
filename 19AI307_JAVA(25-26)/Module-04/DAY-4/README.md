@@ -5,10 +5,7 @@ Create a system that builds Car and Bike objects for two companies: "Honda" and 
 
 For example:
 
-Input	Result
-honda
-Honda Car created
-Honda Bike created
+<img width="405" height="158" alt="image" src="https://github.com/user-attachments/assets/0ea7503d-32db-4edf-b98e-d0dc5b66bf7e" />
 
 
 
@@ -107,8 +104,10 @@ public class Main {
 
 ## OUTPUT:
 
+<img width="733" height="462" alt="image" src="https://github.com/user-attachments/assets/1f5840b5-4390-4bc7-814e-994be2f8db2f" />
 
 
 ## RESULT:
 
 Thus, the program successfully implements the Abstract Factory Pattern and creates Car and Bike objects for the chosen brand.
+
