@@ -5,12 +5,8 @@ Read a file and print only the lines containing the word "Java".
  
 For example:
 
-Input	Result
-I love Java
-Python is good
-exit
-Lines containing the word 'Java':
-I love Java
+<img width="601" height="194" alt="image" src="https://github.com/user-attachments/assets/3316a829-bbc6-40f6-aa7e-710b33533147" />
+
 
 ## AIM:
 To write a Java program that reads multiple lines of input and prints only the lines containing the word "Java".
@@ -18,7 +14,12 @@ To write a Java program that reads multiple lines of input and prints only the l
 ## ALGORITHM :
 1.	Start the program.
 2.	Import the necessary package 'java.util'
-3.	
+3.	Initialize a list to store lines containing "Java".
+4.	Read lines continuously until "exit" is entered.
+5.	Check if each line contains "Java".
+6.	If it does, add it to the list.
+7.	After reading all lines, print the lines stored in the list.
+8.	Stop the program.
 
 
 
@@ -28,8 +29,8 @@ To write a Java program that reads multiple lines of input and prints only the l
  ```
 /*
 Program to implement a File Handling using Java
-Developed by: 
-RegisterNumber:  
+Developed by: ANTO JESSI A
+RegisterNumber:  212222040009
 */
 ```
 
@@ -71,8 +72,10 @@ public class PrintJavaLines {
 
 ## OUTPUT:
 
+<img width="1149" height="490" alt="image" src="https://github.com/user-attachments/assets/19d1038d-e34e-4086-bf26-576b0659a479" />
 
 
 ## RESULT:
 
 The program successfully reads multiple lines and prints only the lines containing "Java".
+
