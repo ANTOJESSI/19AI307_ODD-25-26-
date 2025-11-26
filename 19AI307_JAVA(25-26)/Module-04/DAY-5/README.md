@@ -2,6 +2,8 @@
 
 ## QUESTION:
 Simulate a fan speed controller using the State Pattern. Each time the user types "next", change fan speed from Off -> Low -> Medium -> High -> Off.
+
+
 <img width="313" height="188" alt="image" src="https://github.com/user-attachments/assets/2b6481db-82bd-4512-b8ba-ac0a3734e6ea" />
 
 
@@ -133,4 +135,5 @@ public class FanSpeedController {
 ## RESULT:
 
 Thus, the program successfully cycles the fan speed through Off → Low → Medium → High → Off each time "next" is entered, demonstrating the State Pattern in action.
+
 
