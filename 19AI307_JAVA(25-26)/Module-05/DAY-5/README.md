@@ -1,30 +1,29 @@
 # Ex.No:5(E) MULTITHREADING -SYNCHRONIZATION
 
 ## QUESTION:
-Write a java program for determine the priority and name of the current thread.
-
-Note : Read the threadname from the User
+Print "Hello" and "World" alternately from two threads using synchronized blocks.
 
 For example:
 
-<img width="452" height="173" alt="image" src="https://github.com/user-attachments/assets/b1131304-0124-403c-bf25-eebfda6e283b" />
+<img width="253" height="257" alt="image" src="https://github.com/user-attachments/assets/90e8704d-9934-405b-9675-a795b319ea09" />
+
 
 
 
 
 ## AIM:
-To write a Java program that reads a thread name from the user and displays the current thread’s name and priority
+To write a Java program that creates two threads to print "Hello" and "World" alternately using synchronized blocks.
 
 ## ALGORITHM :
 1.	Start the program.
 2.	Import the necessary package 'java.util'
-3.	Create a Scanner object to read input.
-4.	Read the thread name from the user.
-5.	Get the current thread using Thread.currentThread().
-6.	Set the thread’s name using setName().
-7.	Display the thread’s priority using getPriority().
-8.	Display the thread’s name using getName().
-9.	Display the thread’s details using toString().
+3.	Read n — number of times to print.
+4. Create a shared lock object and a boolean flag to control turns.
+5.	Create Thread 1 to print "Hello" when it's its turn.
+6.	Create Thread 2 to print "World" when it's its turn.
+7.	Use synchronized, wait(), and notify() to alternate printing.
+8.	Start both threads.
+9.	Stop the program.
 
 
 
@@ -44,27 +43,46 @@ RegisterNumber:  212222040009
 ```
 import java.util.Scanner;
 
-public class ThreadInfo {
+public class HelloWorldSimple {
+
+    private static final Object lock = new Object();
+    private static boolean helloTurn = true; // Hello prints first
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
 
-        // Read thread name from user
-        String threadName = sc.nextLine();
+        Thread helloThread = new Thread(() -> {
+            for (int i = 0; i < n; i++) {
+                synchronized (lock) {
+                    while (!helloTurn) {
+                        try { lock.wait(); } catch (Exception e) {}
+                    }
+                    System.out.println("Hello");
+                    helloTurn = false;
+                    lock.notify();
+                }
+            }
+        });
 
-        // Get the current thread
-        Thread current = Thread.currentThread();
+        Thread worldThread = new Thread(() -> {
+            for (int i = 0; i < n; i++) {
+                synchronized (lock) {
+                    while (helloTurn) {
+                        try { lock.wait(); } catch (Exception e) {}
+                    }
+                    System.out.println("World");
+                    helloTurn = true;
+                    lock.notify();
+                }
+            }
+        });
 
-        // Set the thread name
-        current.setName(threadName);
-
-        // Display results
-        System.out.println("Priority of Thread: " + current.getPriority());
-        System.out.println("Name of Thread: " + current.getName());
-        System.out.println(current.toString());
-
-        sc.close();
+        helloThread.start();
+        worldThread.start();
     }
 }
+
 ```
 
 
@@ -73,9 +91,11 @@ public class ThreadInfo {
 
 ## OUTPUT:
 
-<img width="909" height="416" alt="image" src="https://github.com/user-attachments/assets/754dcdfe-e57b-4b20-ba45-cff2f8c0d609" />
+<img width="578" height="864" alt="image" src="https://github.com/user-attachments/assets/e303add0-d38e-4c42-866d-766651114e44" />
+
 
 
 ## RESULT:
-The program successfully sets the name of the current thread, and prints the thread’s priority, name, and details.
+Thus, the program successfully prints "Hello" and "World" alternately using two threads and synchronized blocks.
+
 
