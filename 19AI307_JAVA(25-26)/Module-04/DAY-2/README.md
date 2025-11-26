@@ -49,24 +49,8 @@ Only matching users get notified.
 
 For example:
 
-Input	Result
-3
-Alice Gamer
-Bob Bookworm
-Cleo PetLover
-2
-Jack Gamer
-Lily Bookworm
-New User Joined: Jack - Type: Gamer  
-Alice: Omg! A new Gamer? MatchIt, you know me too well! (It’s Jack!)  
-New User Joined: Lily - Type: Bookworm  
-Bob: Omg! A new Bookworm? MatchIt, you know me too well! (It’s Lily!)
-2
-Daisy GymFreak
-Ethan PetLover
-1
-Zara Bookworm
-New User Joined: Zara - Type: Bookworm
+<img width="973" height="443" alt="image" src="https://github.com/user-attachments/assets/a9eedc3f-78e5-4916-832d-6ef999d51c42" />
+
 
 
 ## AIM:
@@ -92,8 +76,8 @@ To write a Java program that implements the Observer Pattern where users get not
  ```
 /*
 Program to implement a SOLID Principles in Java Program
-Developed by: 
-RegisterNumber:  
+Developed by: ANTO JESSI A
+RegisterNumber:  212222040009
 */
 ```
 
@@ -177,3 +161,4 @@ public class prog {
 
 ## RESULT:
 Thus, the program successfully implements the Observer Pattern and notifies only the matching users when a new user signs up.
+
