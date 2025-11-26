@@ -7,11 +7,8 @@ Note : Read the threadname from the User
 
 For example:
 
-Input	Result
-NewThread
-Priority of Thread: 5
-Name of Thread: NewThread
-Thread[NewThread,5,main]
+<img width="452" height="173" alt="image" src="https://github.com/user-attachments/assets/b804ea94-d472-424e-846c-7d5c56dad26d" />
+
 
 
 
@@ -81,3 +78,4 @@ public class ThreadInfo {
 ## RESULT:
 
 The program successfully sets the name of the current thread and prints its priority, name, and details.
+
