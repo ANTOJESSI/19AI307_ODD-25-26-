@@ -1,68 +1,25 @@
 # Ex.No:4(D) DESIGN PATTERN  ---- BEHAVIOUR PATTERN
 
 ## QUESTION:
-Create an MVC program for a School System where the DAO stores student info, controller fetches it, and view displays it.
-
-For example:
-
-Input	Result
-3
-Siva
-18
-IT100
-Karthik
-19
-IT101
-Ramya
-20
-IT102
-IT102
-Student Details:
-Name    : Ramya
-Age     : 20
-Roll No : IT102
-4
-Rahul
-22
-EEE001
-Preethi
-23
-EEE002
-Naveen
-21
-EEE003
-Divya
-20
-EEE004
-EEE003
-Student Details:
-Name    : Naveen
-Age     : 21
-Roll No : EEE003
+Simulate a fan speed controller using the State Pattern. Each time the user types "next", change fan speed from Off -> Low -> Medium -> High -> Off.
+<img width="313" height="188" alt="image" src="https://github.com/user-attachments/assets/2b6481db-82bd-4512-b8ba-ac0a3734e6ea" />
 
 
 
 ## AIM:
 
-To develop a Java program using the MVC (Model–View–Controller) architecture, where the DAO stores student information, the Controller fetches the data, and the View displays the student details.
+To simulate a fan speed controller using the State Pattern, where each press of "next" changes the fan speed in the sequence: Off → Low → Medium → High → Off.
 
 ## ALGORITHM :
 1.	Start the program.
 2.	Import the necessary package 'java.util'
-3.	Create a Model (Student) class with name, age, and roll number.
-4.	Create DAO interface with methods to add and get student.
-5.	Implement DAO using a list to store student objects.
-6.	Create a View class to display student details.
-7.	Create a Controller class to interact with DAO and View.
-8.	Read number of students and their details from input.
-9.	Add each student to DAO through Controller.
-10.	Read the roll number to search.
-11.	Controller fetches the student from DAO and View displays it.
-12.	End program.
+3.	Define a FanState interface with methods handleRequest() and getStateName().
+4.	Implement concrete states: OffState, LowState, MediumState, and HighState. Each state changes to the next when handleRequest() is called
+5.	Create a FanContext class that maintains the current state of the fan.
+6.	On each "next" input from the user, call pressButton() to transition to the next state and display the current fan speed.
+7.	Exit the program when the user types "exit".
+
    
-
-
-
 
 
 ## PROGRAM:
@@ -78,103 +35,87 @@ RegisterNumber:  212222040009
 
 
 ```
-import java.util.*;
+import java.util.Scanner;
 
-// Model
-class Student {
-    private String name;
-    private int age;
-    private String rollNo;
-
-    public Student(String name, int age, String rollNo) {
-        this.name = name;
-        this.age = age;
-        this.rollNo = rollNo;
-    }
-
-    public String getName() { return name; }
-    public int getAge() { return age; }
-    public String getRollNo() { return rollNo; }
+// State interface
+interface FanState {
+    void handleRequest(FanContext ctx);
+    String getStateName();
 }
 
-// DAO Interface
-interface StudentDAO {
-    void addStudent(Student student);
-    Student getStudentByRollNo(String rollNo);
-}
-
-// DAO Implementation
-class StudentDAOImpl implements StudentDAO {
-    private List<Student> students = new ArrayList<>();
-
-    public void addStudent(Student student) {
-        students.add(student);
+// Concrete States
+class OffState implements FanState {
+    public void handleRequest(FanContext ctx) {
+        ctx.setState(new LowState());
+        System.out.println("Fan is on Low");
     }
-
-    public Student getStudentByRollNo(String rollNo) {
-        for (Student s : students) {
-            if (s.getRollNo().equals(rollNo)) {
-                return s;
-            }
-        }
-        return null;
+    public String getStateName() {
+        return "Off";
     }
 }
 
-// View
-class StudentView {
-    public void displayStudent(Student student) {
-        if (student != null) {
-            System.out.println("Student Details:");
-            System.out.println("Name    : " + student.getName());
-            System.out.println("Age     : " + student.getAge());
-            System.out.println("Roll No : " + student.getRollNo());
-        } else {
-            System.out.println("Student not found.");
-        }
+class LowState implements FanState {
+    public void handleRequest(FanContext ctx) {
+        ctx.setState(new MediumState());
+        System.out.println("Fan is on Medium");
+    }
+    public String getStateName() {
+        return "Low";
     }
 }
 
-// Controller
-class StudentController {
-    private StudentDAO dao;
-    private StudentView view;
-
-    public StudentController(StudentDAO dao, StudentView view) {
-        this.dao = dao;
-        this.view = view;
+class MediumState implements FanState {
+    public void handleRequest(FanContext ctx) {
+        ctx.setState(new HighState());
+        System.out.println("Fan is on High");
     }
-
-    public void addStudent(Student student) {
-        dao.addStudent(student);
-    }
-
-    public void showStudent(String rollNo) {
-        Student student = dao.getStudentByRollNo(rollNo);
-        view.displayStudent(student);
+    public String getStateName() {
+        return "Medium";
     }
 }
 
-// Main class
-public class SchoolSystemMVC {
+class HighState implements FanState {
+    public void handleRequest(FanContext ctx) {
+        ctx.setState(new OffState());
+        System.out.println("Fan is Off");
+    }
+    public String getStateName() {
+        return "High";
+    }
+}
+
+// Context
+class FanContext {
+    private FanState state;
+
+    public FanContext() {
+        state = new OffState();
+    }
+
+    public void setState(FanState state) {
+        this.state = state;
+    }
+
+    public void pressButton() {
+        state.handleRequest(this);
+    }
+}
+
+public class FanSpeedController {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        StudentDAO dao = new StudentDAOImpl();
-        StudentView view = new StudentView();
-        StudentController controller = new StudentController(dao, view);
+        FanContext fan = new FanContext();
+        String input;
 
-        int n = sc.nextInt();
-        sc.nextLine();
-        for (int i = 0; i < n; i++) {
-            String name = sc.nextLine();
-            int age = sc.nextInt();
-            sc.nextLine();
-            String rollNo = sc.nextLine();
-            controller.addStudent(new Student(name, age, rollNo));
+        while (true) {
+            input = sc.nextLine();
+
+            if (input.equalsIgnoreCase("next")) {
+                fan.pressButton();
+            } else if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
         }
-
-        String searchRollNo = sc.nextLine();
-        controller.showStudent(searchRollNo);
         sc.close();
     }
 }
@@ -185,9 +126,11 @@ public class SchoolSystemMVC {
 
 ## OUTPUT:
 
-<img width="664" height="865" alt="image" src="https://github.com/user-attachments/assets/513d52e2-81c4-4919-9d33-d323187348ed" />
+<img width="679" height="583" alt="image" src="https://github.com/user-attachments/assets/38f8ce1b-222f-4e1a-ae32-d6581d76e30e" />
+
 
 
 ## RESULT:
 
-Thus, a School System was successfully implemented using the MVC architecture, where the DAO stores student data, the Controller retrieves it, and the View displays it.
+Thus, the program successfully cycles the fan speed through Off → Low → Medium → High → Off each time "next" is entered, demonstrating the State Pattern in action.
+
