@@ -1,60 +1,62 @@
 # Ex.No:4(C)  COMPOSITION IN JAVA
 
 ## QUESTION:
-At an international airport, only one Radar Control Tower exists. This tower is responsible for handling all flight communications regardless of how many flights are coming in. Each incoming flight must contact this tower to register its approach.
+You are developing a YouTube-like platform. Each channel can have multiple subscribers (viewers).
 
-To ensure safety and consistency, all flights must communicate with the same instance of the tower. If multiple towers are created, it may lead to inconsistent instructions — a huge risk in aviation.
+Whenever the channel uploads a new video, it must instantly notify all of its subscribers.
 
-Your task is to simulate this system using the Singleton pattern.
+Each subscriber prints their own message like:
 
-Key Hint (Hidden in Story):
-Only one control tower object should exist.
+"[SubscriberName]: New video from [ChannelName]! Watching now..."
 
-Every flight contacting it should register its name.
+The channel doesn't care who the subscribers are or how many there are—it just broadcasts the update.
 
-You should log the order of flights that contacted the tower.
+Student's Objective:
+Implement the Observer Pattern:
+
+Channel = Subject
+Subscriber = Observer
+When a video is uploaded, all subscribed users are notified.
+
+Notifications should include channel name and video title.
 
 Input Format:
-First line: Integer n – number of incoming flights
+First line: channelName
 
-Next n lines: Each line contains the flight name.
+Second line: Integer n – number of subscribers
+
+Next n lines: subscriber names
+
+Next line: Integer v – number of videos uploaded
+
+Next v lines: video titles
 
 Output Format:
-For each flight, print:
+After each video upload:
 
-[FlightName] registered with Radar Control Tower. Total Flights: [count]
+[ChannelName] uploaded: [VideoTitle]
+[SubscriberName]: New video from [ChannelName]! Watching now...
+[SubscriberName]: New video from [ChannelName]! Watching now...
+...
 
 For example:
-
-Input	Result
-3
-AI101
-BA202
-EK303
-AI101 registered with Radar Control Tower. Total Flights: 1
-BA202 registered with Radar Control Tower. Total Flights: 2
-EK303 registered with Radar Control Tower. Total Flights: 3
+<img width="977" height="259" alt="image" src="https://github.com/user-attachments/assets/b1833fb9-0910-4a9a-914d-c3d0355e76f6" />
 
 
 
 ## AIM:
-To implement a Singleton pattern in Java to simulate a Radar Control Tower where only one tower instance exists, and all flights register with it.
+To write a Java program using the Observer Design Pattern where a YouTube channel (Subject) notifies all its subscribers (Observers) whenever a new video is uploaded.
 
 ## ALGORITHM :
 1.	Start the program.
 2.	Import the necessary package 'java.util'
-3.	Create a RadarControlTower class with a private static instance.
-4.	Make the constructor private to prevent multiple instances.
-5.	Implement a getInstance() method to return the single instance.
-6.	Add a method registerFlight(String flightName) to register a flight and increment flight count.
-7.	Read the number of flights n.
-8.	For each flight:
-
-Read the flight name.
-
-Get the singleton tower instance.
-
-Register the flight and display total registered flights.
+3.	Read the channel name from the user.
+4.	Create a Channel (Subject) object.
+5.	Read the number of subscribers n.
+6. For each subscriber:Read the subscriber name,Create a Subscriber object,Add it to the Channel using subscribe().
+7.	Read the number of videos v.
+8.	For each video:Read the video title,Call uploadVideo() which-Prints upload message,Notifies every subscriber.
+9.	Stop the program.
 
 
 
@@ -75,37 +77,59 @@ RegisterNumber:  212222040009
 ```
 import java.util.*;
 
-class RadarControlTower {
-    private static RadarControlTower instance = null;
-    private int flightCount;
+interface Observer {
+    void notify(String channelName, String videoTitle);
+}
 
-    private RadarControlTower() {
-        flightCount = 0;
+class Subscriber implements Observer {
+    private String name;
+
+    public Subscriber(String name) {
+        this.name = name;
     }
 
-    public static RadarControlTower getInstance() {
-        if (instance == null) {
-            instance = new RadarControlTower();
+    public void notify(String channelName, String videoTitle) {
+        System.out.println(name + ": New video from " + channelName + "! Watch now...");
+    }
+}
+
+class Channel {
+    private String channelName;
+    private List<Observer> subscribers;
+
+    public Channel(String channelName) {
+        this.channelName = channelName;
+        this.subscribers = new ArrayList<>();
+    }
+
+    public void subscribe(Observer subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void uploadVideo(String videoTitle) {
+        System.out.println(channelName + " uploaded: " + videoTitle);
+        for (Observer sub : subscribers) {
+            sub.notify(channelName, videoTitle);
         }
-        return instance;
-    }
-
-    public int registerFlight(String flightName) {
-        flightCount++;
-        return flightCount;
     }
 }
 
 public class prog {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        String channelName = sc.nextLine();
+        Channel channel = new Channel(channelName);
         int n = sc.nextInt();
         sc.nextLine();
         for (int i = 0; i < n; i++) {
-            String flight = sc.nextLine();
-            RadarControlTower tower = RadarControlTower.getInstance();
-            int total = tower.registerFlight(flight);
-            System.out.println(flight + " registered with Radar Control Tower. Total Flights: " + total);
+            String sub = sc.nextLine();
+            channel.subscribe(new Subscriber(sub));
+        }
+        int v = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < v; i++) {
+            String title = sc.nextLine();
+            channel.uploadVideo(title);
         }
         sc.close();
     }
@@ -118,9 +142,11 @@ public class prog {
 
 ## OUTPUT:
 
-<img width="1269" height="418" alt="image" src="https://github.com/user-attachments/assets/8cbea607-d00e-4f3f-858a-649c1f50321e" />
+<img width="1220" height="472" alt="image" src="https://github.com/user-attachments/assets/5afe579e-f12d-4f37-ad8a-7efa96a7503a" />
+
 
 
 ## RESULT:
 
-The program successfully demonstrates the Singleton pattern, ensuring only one Radar Control Tower instance exists and all flights register through it, maintaining consistent flight tracking.
+The program successfully simulates a YouTube-like platform where a channel notifies its subscribers whenever a new video is uploaded.
+
